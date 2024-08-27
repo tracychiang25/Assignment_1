@@ -47,6 +47,20 @@
   align-items: center; /* Center-aligns children horizontally */
   padding-bottom: 40px; /* Add padding at the bottom */
 }
+.about{
+  background-image:  url("./assets/About.png");
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Allows vertical alignment of child elements */
+  justify-content: flex-end; /* Pushes children to the bottom */
+  align-items: center; /* Center-aligns children horizontally */
+  padding-bottom: 40px; /* Add padding at the bottom */
+}
 .animated-text{
   font-size: 30px;
   font-weight: 600;
