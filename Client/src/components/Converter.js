@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { Button, message } from 'antd';
+import { saveAs } from 'file-saver'
 import Logout from './Logout';
 import History from './History';
 
@@ -40,28 +41,54 @@ function Converter() {
                     'Authorization': `Bearer ${token}`
                 }
             });
+            console.log(fileInput.current.value);
             message.success('Video uploaded successfully!');
             setDownloadLink(response.data.gifUrl);
+            
         } catch (err) {
             console.error('Error:', err);
             message.error('Failed to upload video.');
         }
 
     }
+    const downloadGif = async () => {
+        try {
+            const tmpList = downloadLink.split('/');
+            const fileName = tmpList[tmpList.length - 1];
+            const response = await axios.get(`http://localhost:5000/download/${fileName}`, {
+                responseType: 'blob', // Ensure the response is treated as a file (blob)
+            });
+
+            if (response.status === 200) {
+                saveAs(response.data, fileName); // Save the file using the file-saver library
+                message.success('GIF downloaded successfully!');
+            } else {
+                message.error('Failed to download GIF.');
+            }
+        } catch (err) {
+            console.error('Error downloading GIF:', err);
+            message.error('Error downloading GIF.');
+        }
+    };
+
     return (
         <>
+            <br />
+            <br />
             <div className="uploadButton">
                 <input type="file" ref={fileInput} accept="video/*" onChange={handleUpload} />
             </div>
+            <br />
             {downloadLink && (
-                <a href={`http://localhost:5000${downloadLink}`} download>
-                    <Button type="secondary">Download Gif</Button>
-                </a>
+            <Button type="secondary" onClick={downloadGif}>Download Gif</Button>
             )}
+            <br />
+            <br />
             <History />
             <br />
             <Logout />
-
+            <br />
+            <br />
         </>
 
 

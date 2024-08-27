@@ -4,7 +4,7 @@ import Logout from './Logout';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { saveAs } from 'file-saver'
-import { message } from 'antd';
+import { Button, message } from 'antd';
 
 function History() {
     const [history, setHistory] = useState([]);
@@ -46,9 +46,9 @@ function History() {
 
         if (resp.status === 200) {
             saveAs(await resp.data, fileName)
-            message.success('download success')
+            message.success('Successfully downloaded!')
         } else {
-            message.error('download failed')
+            message.error('Download failed.')
         }
     }
 
@@ -56,11 +56,16 @@ function History() {
         <>
             <h2>History</h2>
             {history.length > 0 ? (
-                <ul>
+                <ul className="history-list">
                     {history.map((item, index) => (
-                        <li key={index}>
-                            <a onClick={() => downloadGif(item.gifUrl)}>GIF {index + 1}</a> - Created at: {new Date(item.createdAt).toLocaleString()}
-                        </li>
+                        <p key={index} className="history-item">
+                            <a >GIF {index + 1}</a> - Created at: {new Date(item.createdAt).toLocaleString()}
+                            <Button size="small" 
+                            onClick={() => downloadGif(item.gifUrl)} 
+                            style={{background:'linear-gradient(135deg, #fff7ad, #ffa9f9)', border:"#ffffff"}}> 
+                            Download 
+                            </Button>
+                        </p>
                     ))}
                 </ul>
             ) : (

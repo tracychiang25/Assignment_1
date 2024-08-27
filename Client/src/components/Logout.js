@@ -11,7 +11,9 @@ function Logout(){
         message.success('You have been logged out successfully!');
     }
     return (
-        <Button onClick={handleLogout} type="primary">
+        <Button 
+        style={{background:'#d9d9d9', border:"#ffffff"}}
+        onClick={handleLogout} type="primary">
           Logout
         </Button>
       );

@@ -3,7 +3,10 @@ const bcrypt = require('bcryptjs');
 const User = require('./models/User');
 
 const dbName = 'mydatabase'
-const mongoURI = `mongodb://localhost:27017/${dbName}`;
+// const mongoURI = `${process.env.MONGO_URI}/${dbName}`;
+const mongoURI= `mongodb://localhost:27017/${dbName}`
+
+console.log('MONGO_URI:', mongoURI); 
 
 const connectDB = async () => {
   try {

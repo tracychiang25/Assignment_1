@@ -3,6 +3,9 @@ const Gif = require('../models/Gifs');
 const path = require('path');
 const User = require('../models/User');
 
+const tasks = new Map();
+
+
 // localhost/upload
 exports.uploadVideo = async (req, res) =>{
     try{
@@ -10,8 +13,9 @@ exports.uploadVideo = async (req, res) =>{
         if(!req.file){
             return res.status(400).json({ error: 'No video file provided'});
         }
+        const taskName = Date.now();
         // Transforming the video to GIF and get the URL
-        const gifFileName = await gifProcessor.transformToGif(req.file.path);
+        const gifFileName = await gifProcessor.transformToGif(req.file.path, tasks, taskName);
         const gifUrl = `/gifs/${gifFileName}`;
         // Create a new GIF record associated with the user
         const newGif = {
@@ -31,7 +35,7 @@ exports.uploadVideo = async (req, res) =>{
         user.gifHistory.push(gif._id); // Push the new GIF to the user's history
         await user.save(); // Save the user with the updated gifHistory
 
-        res.status(201).json({ gifUrl });
+        res.status(201).json({ gifUrl, taskName });
       } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -61,4 +65,11 @@ exports.downloadGif = (req, res) =>{
     });
 };
 
-
+exports.displayProgress = async (req, res) => {
+    const taskName = req.params.taskName;
+    if (!tasks.has(taskName))
+      errBuilder(404, "The compression task does not exist");
+    const progress = tasks.get(taskName);
+    if (progress >= 100) tasks.delete(taskName);
+    return res.json({ progress: progress });
+  };
