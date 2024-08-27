@@ -39,11 +39,7 @@ exports.uploadVideo = async (req, res) =>{
 // localhost/download/:filename
 exports.getHistory = async (req, res) => {
     try{
-        const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, process.env.SECRET_KEY)
-        const username = decodedToken.username;
-
-        const user = await User.findOne({ username }).populate('gifHistory');
+        const user = await User.findOne({ username: req.user.username }).populate('gifHistory');
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
@@ -55,7 +51,7 @@ exports.getHistory = async (req, res) => {
 // localhost/history/:username
 exports.downloadGif = (req, res) =>{
     const gifFileName = req.params.filename;
-    const filePath = path.join(__dirname, '/gifs/', gifFileName);
+    const filePath = path.join(process.cwd(), 'public', 'gifs', gifFileName);
 
     res.download(filePath, err =>{
         if(err){

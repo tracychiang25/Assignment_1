@@ -1,11 +1,11 @@
 const ffmpeg = require('fluent-ffmpeg');
-ffmpeg.setFfmpegPath('C:/Users/yy509/Downloads/ffmpeg/bin/ffmpeg.exe');
+// ffmpeg.setFfmpegPath('C:/Users/yy509/Downloads/ffmpeg/bin/ffmpeg.exe');
 const path = require('path');
 
 const transformToGif = (videoPath) => {
   return new Promise((resolve, reject) => {
-    const outputFilePath = path.join('public', 'gifs', `${Date.now()}.gif`);
-
+    const fileName = `${Date.now()}.gif`
+    const outputFilePath = path.join('public', 'gifs', fileName);
     ffmpeg(videoPath)
       .outputOptions([
         '-vf', 'scale=640:-1:flags=lanczos', // Scale the video while maintaining the aspect ratio
@@ -15,7 +15,7 @@ const transformToGif = (videoPath) => {
       ])
       .on('end', () => {
         console.log('Conversion finished successfully');
-        resolve(outputFilePath);
+        resolve(fileName);
       })
       .on('error', (err) => {
         console.error('Error during conversion:', err);

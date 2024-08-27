@@ -3,6 +3,7 @@ var router = express.Router();
 const gifController = require('../controllers/gifController');
 const middleware = require('../middleware/auth');
 const multer = require('multer');
+const path = require('path')
 
 // Set up multer for file upload
 const upload = multer({ dest: 'uploads/' });
@@ -12,7 +13,7 @@ router.post('/upload', middleware.authenticateJWT, upload.single('video'), gifCo
 //READ- Route to download one gif
 router.get('/download/:filename', gifController.downloadGif);
 //READ- Route  for getting user history
-router.get('/history/:username', gifController.getHistory);
+router.get('/history/:username', middleware.authenticateJWT, gifController.getHistory);
 
 //DELETE
 
