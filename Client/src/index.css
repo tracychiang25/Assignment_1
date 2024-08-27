@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  font-family: "Quicksand";
+  color: #333;
+}
+
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 1500px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+}
+.navbar h1 {
+  background: linear-gradient(to right, #8c52ff, #5ce1e6); /* Gradient colors */
+  -webkit-background-clip: text; /* For WebKit-based browsers */
+  background-clip: text; /* For other browsers */
+  color: transparent; /* Hide the original text color */
+  text-align: center; /* Center align if needed */
+}
+.navbar .links {
+  margin-left: auto;
+}
+.navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+.navbar a:hover {
+  color: #5ce1e6;
+}
+
+.heroimage{
+  background-image:  url("./assets/Banner.png");
+  height: 500px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Allows vertical alignment of child elements */
+  justify-content: flex-end; /* Pushes children to the bottom */
+  align-items: center; /* Center-aligns children horizontally */
+  padding-bottom: 40px; /* Add padding at the bottom */
+}
+.animated-text{
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+.uploadButton{
+  margin-bottom: 20px;
+}

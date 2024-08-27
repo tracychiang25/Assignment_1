@@ -1,0 +1,28 @@
+const ffmpeg = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath('C:/Users/yy509/Downloads/ffmpeg/bin/ffmpeg.exe');
+const path = require('path');
+
+const transformToGif = (videoPath) => {
+  return new Promise((resolve, reject) => {
+    const outputFilePath = path.join('public', 'gifs', `${Date.now()}.gif`);
+
+    ffmpeg(videoPath)
+      .outputOptions([
+        '-vf', 'scale=640:-1:flags=lanczos', // Scale the video while maintaining the aspect ratio
+        '-t', '20', // Limit to 20 seconds 
+        '-r', '15', // Frame rate (15 frames per second)
+        '-q:v', '3' // Lower the value for better quality (range is 1-31, lower is better)
+      ])
+      .on('end', () => {
+        console.log('Conversion finished successfully');
+        resolve(outputFilePath);
+      })
+      .on('error', (err) => {
+        console.error('Error during conversion:', err);
+        reject(err);
+      })
+      .save(outputFilePath);
+  });
+};
+
+module.exports = { transformToGif };
