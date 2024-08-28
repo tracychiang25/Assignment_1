@@ -3,7 +3,7 @@ services:
     image: mongo:latest
     container_name: mongo
     networks:
-      -cab432
+      - cab432
     volumes:
       - mongodata:/data/db
 
