@@ -28,11 +28,6 @@ function Converter() {
             return;
         }
 
-        // if (!file) {
-        //     message.error('Please select a valid video file.');
-        //     return;
-        // }
-
         const formData = new FormData();
         formData.append('video', selectedFile);
         fileInput.current.value = []
