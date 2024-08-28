@@ -11,9 +11,10 @@ connectDB();
 
 
 // route handlers for different parts of the applicaiton
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var gifsRouter = require('./routes/gifs');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const gifsRouter = require('./routes/gifs');
+
 
 
 var app = express();

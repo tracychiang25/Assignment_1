@@ -5,9 +5,11 @@ import { Button, message } from 'antd';
 import { saveAs } from 'file-saver'
 import Logout from './Logout';
 import History from './History';
+import Progress from './Progress';
 
 function Converter() {
-    const [file, setFile] = useState(null);
+    // const [file, setFile] = useState(null);
+    const [taskName, setTaskName] = useState(null);
     const [downloadLink, setDownloadLink] = useState('');
     const navigate = useNavigate();
     const fileInput = useRef(null);
@@ -43,7 +45,7 @@ function Converter() {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            console.log(fileInput.current.value);
+            setTaskName(response.data.taskName);
             message.success('Video uploaded successfully!');
             setDownloadLink(response.data.gifUrl);
             
@@ -81,6 +83,7 @@ function Converter() {
             <div className="uploadButton">
                 <input type="file" ref={fileInput} accept="video/*" onChange={handleUpload} />
             </div>
+            {taskName && <Progress taskName={taskName} />}
 
             <br />
             {downloadLink && (

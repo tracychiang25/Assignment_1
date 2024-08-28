@@ -19,9 +19,10 @@ const transformToGif = (videoPath, tasks, taskName) => {
         resolve(fileName);
       })
       .on("progress", (progress) => {
-       tasks.set(taskName, progress.percent)
+       tasks.set(taskName, Math.ceil(progress.percent))
       })
       .on('end', () => {
+        tasks.set(taskName, 100);
         console.log('Conversion finished successfully');
       })
       .on('error', (err) => {

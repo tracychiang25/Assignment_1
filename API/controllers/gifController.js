@@ -65,11 +65,17 @@ exports.downloadGif = (req, res) =>{
     });
 };
 
-exports.displayProgress = async (req, res) => {
-    const taskName = req.params.taskName;
-    if (!tasks.has(taskName))
-      errBuilder(404, "The compression task does not exist");
+exports.displayProgress = (req, res) => {
+    const taskName = Number(req.params.taskname);
+    console.log('Requested taskName:', taskName);
+    console.log('Current tasks map:', tasks);
+
+    if (!tasks.has(taskName)){
+        return res.status(404).json({ error: "The compression task does not exist" });
+    }
     const progress = tasks.get(taskName);
-    if (progress >= 100) tasks.delete(taskName);
+    if (progress >= 100){
+        tasks.delete(taskName);
+    } 
     return res.json({ progress: progress });
   };
