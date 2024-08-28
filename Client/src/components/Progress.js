@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import '../index.css'; 
+import {message} from 'antd';
 
 function Progress({ taskName }) {
     const [progress, setProgress] = useState(null);
@@ -14,6 +15,7 @@ function Progress({ taskName }) {
                 
                 // Stop polling if the task is complete
                 if (response.data.progress >= 100) {
+                    message.success("Successfully converted!");
                     clearInterval(intervalId);
                 }
             } catch (err) {
@@ -24,7 +26,7 @@ function Progress({ taskName }) {
 
         return () => clearInterval(intervalId); // Cleanup on component unmount
     }, [taskName]);
-
+   
     return (
         <div className="container">
             {progress !== null ? (
