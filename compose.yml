@@ -15,7 +15,7 @@ services:
     environment:
       PORT: 3000
       SECRET_KEY: ge1d646asfer57sf54
-      MONGODB_URI: mongodb://mongo:27017
+      MONGO_URI: mongodb://mongo:27017
     ports:
       - "80:3000"
     depends_on:
