@@ -17,9 +17,5 @@ COPY API/ .
 
 COPY --from=build /app/build ./public
 
-# ENV
-ENV MONGO_URI=mongodb://localhost:27017
-ENV SECRET_KEY=ge1d646asfer57sf54
-
 CMD ["node","bin/www"]
 EXPOSE 3000
