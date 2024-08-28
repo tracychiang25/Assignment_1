@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import Logout from './Logout';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { saveAs } from 'file-saver'
@@ -21,7 +20,8 @@ function History() {
 
         const fetchHistory = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/history/${username}`, {
+                const path = (process.env.REACT_APP_APIURL ? process.env.REACT_APP_APIURL + '/history' : '/history');
+                const response = await axios.get(`${path}/${username}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -40,7 +40,9 @@ function History() {
     const downloadGif = async (gifUrl) => {
         const tmpList = gifUrl.split('/')
         const fileName = tmpList[tmpList.length - 1];
-        const resp = await axios.get(`http://localhost:5000/download/${fileName}`, {
+        //http://localhost:5000/download
+        const path = (process.env.REACT_APP_APIURL ? process.env.REACT_APP_APIURL + '/download' : '/download');
+        const resp = await axios.get(`${path}/${fileName}`, {
             responseType: 'blob',
         })
 

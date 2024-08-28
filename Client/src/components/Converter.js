@@ -11,7 +11,7 @@ function Converter() {
     const [downloadLink, setDownloadLink] = useState('');
     const navigate = useNavigate();
     const fileInput = useRef(null);
-
+    
     const handleUpload = async (event) => {
         const selectedFile = event.target.files[0];
         console.log('Selected file:', selectedFile); // Add this line
@@ -35,7 +35,9 @@ function Converter() {
         formData.append('video', selectedFile);
         fileInput.current.value = []
         try {
-            const response = await axios.post('http://localhost:5000/upload', formData, {
+            //'http://localhost:5000/upload'
+            const path = (process.env.REACT_APP_APIURL ? process.env.REACT_APP_APIURL + '/upload' : '/upload');
+            const response = await axios.post(path, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
@@ -55,7 +57,8 @@ function Converter() {
         try {
             const tmpList = downloadLink.split('/');
             const fileName = tmpList[tmpList.length - 1];
-            const response = await axios.get(`http://localhost:5000/download/${fileName}`, {
+            const path = (process.env.REACT_APP_APIURL ? process.env.REACT_APP_APIURL + '/download' : '/download');
+            const response = await axios.get(`${path}/${fileName}`, {
                 responseType: 'blob', // Ensure the response is treated as a file (blob)
             });
 
@@ -78,6 +81,7 @@ function Converter() {
             <div className="uploadButton">
                 <input type="file" ref={fileInput} accept="video/*" onChange={handleUpload} />
             </div>
+
             <br />
             {downloadLink && (
             <Button type="secondary" onClick={downloadGif}>Download Gif</Button>
