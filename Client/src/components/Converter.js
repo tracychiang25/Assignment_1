@@ -2,13 +2,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import { Button, message } from 'antd';
-import { saveAs } from 'file-saver'
+import { saveAs } from 'file-saver';
 import Logout from './Logout';
 import History from './History';
 import Progress from './Progress';
 
 function Converter() {
-    // const [file, setFile] = useState(null);
     const [taskName, setTaskName] = useState(null);
     const [downloadLink, setDownloadLink] = useState('');
     const navigate = useNavigate();
@@ -16,9 +15,7 @@ function Converter() {
     
     const handleUpload = async (event) => {
         const selectedFile = event.target.files[0];
-        console.log('Selected file:', selectedFile); // Add this line
-
-        // setFile(selectedFile);
+        console.log('Selected file:', selectedFile); 
 
         const token = localStorage.getItem('token');
 

@@ -17,4 +17,5 @@ router.get('/history/:username', middleware.authenticateJWT, gifController.getHi
 //GET- Upload progress
 router.get('/progress/:taskname', gifController.displayProgress);
 
+
 module.exports = router;
