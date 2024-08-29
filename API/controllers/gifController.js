@@ -3,7 +3,8 @@ const Gif = require('../models/Gifs');
 const path = require('path');
 const User = require('../models/User');
 
-const tasks = new Map();
+// Map(): Key-pair value, stores the taskName and progress
+const tasks = new Map(); // It will be updated when converting to gif (ref: gifProcessor)
 
 
 // localhost/upload
