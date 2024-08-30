@@ -15,19 +15,28 @@ const connectDB = async () => {
       useUnifiedTopology: true,
     });
     console.log('MongoDB connected successfully');
+    //Define users
+    const users = [
+      { username: '1', password: '1' },
+      { username: '2', password: '2' },
+      { username: '3', password: '3' },
+      { username: '4', password: '4' },
+    ];
 
-    const username = '2';
-    const password = '2';
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const gifHistory = [];
-    // Check if the user already exists
-    const existingUser = await User.findOne({ username });
-    if (!existingUser) {
-      const user = new User({ username, password: hashedPassword, gifHistory });
-      await user.save();
-      console.log('Test user created successfully');
-    } else {
-      console.log('Test user already exists');
+    for (const userData of users) {
+      const { username, password } = userData;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const gifHistory = [];
+
+      // Check if the user already exists
+      const existingUser = await User.findOne({ username });
+      if (!existingUser) {
+        const user = new User({ username, password: hashedPassword, gifHistory });
+        await user.save();
+        console.log(`Test user ${username} created successfully`);
+      } else {
+        console.log(`Test user ${username} already exists`);
+      }
     }
 
 

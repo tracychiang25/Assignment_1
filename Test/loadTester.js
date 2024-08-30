@@ -2,7 +2,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 
-const base_url = 'http://localhost:5000';
+const base_url = 'http://13.211.123.51';
 const file = './test.mp4';
 
 const login = async () => {
@@ -50,7 +50,7 @@ const progress = async (token, taskName) => {
             }
         });
         console.log(taskName);
-        console.log(response);
+        // console.log(response);
         return response.data.progress;
     } catch (err) {
         console.error('Error loading progress:', err);
