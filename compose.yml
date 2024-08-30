@@ -8,10 +8,12 @@ services:
       - mongodata:/data/db
 
   app:
-    image: test
-    container_name: test
+    image: 901444280953.dkr.ecr.ap-southeast-2.amazonaws.com/11404680_ass1
+    container_name: assignment1
     networks:
       - cab432
+    volumes:
+      - ./API/public/gifs:/app/public/gifs
     environment:
       PORT: 3000
       SECRET_KEY: ge1d646asfer57sf54
