@@ -7,7 +7,7 @@ Overview
 - **Name:** Hsin-Yen Chiang
 - **Student number:** n11404680
 - **Application name:** Vid2Gif
-- **Two line description:** 
+- **Two line description:** This is an application that converts videos to gif files. Users can upload their videos, converted them into gif files, and then downolad them. 
 
 
 Core criteria
@@ -15,11 +15,12 @@ Core criteria
 
 ### Docker image
 
-- **ECR Repository name:**
+- **ECR Repository name:** 11404680_ass1
 - **Video timestamp:**
 - **Relevant files:**
-    /Dockerfile
-    - 
+    - /Dockerfile
+    - /compose.yml
+    
 
 ### Docker image running on EC2
 
@@ -31,28 +32,33 @@ Core criteria
 - **One line description:** Hard-coded username/password list.  Using JWTs for sessions.
 - **Video timestamp:**
 - **Relevant files:**
-    - 
+    - /API/controllers/userController.js
+    
 
 ### User dependent functionality
 
-- **One line description:**
+- **One line description:**Users can upload videos and download the converted files.
 - **Video timestamp:**
 - **Relevant files:**
-    - 
+    - /API/middleware/auth.js
+    - /API/routes/gifs.js
+    - /API/controllers/gifController.js
 
 ### Web client
 
-- **One line description:**
+- **One line description:** Single page application using React
 - **Video timestamp:**
 - **Relevant files:**
-    - 
+    - /Client/src/App.js
+    - /Client/src/components
 
 ### REST API
 
-- **One line description:**
+- **One line description:**Using REST API and HTTP methods(POST, GET) and appropriate status codes
 - **Video timestamp:** 
 - **Relevant files:**
-    - 
+    - /API/controllers/gifController.js
+    - /API/controllers/userController.js
 
 ### Two kinds of data
 
@@ -76,17 +82,17 @@ Core criteria
 
 ### CPU intensive task
 
-- **One line description:**
+- **One line description:**Uses ffmpeg to convert videos to gif files
 - **Video timestamp:** 
 - **Relevant files:**
-    - 
+    - /API/services/gifProcessor.js
 
 ### CPU load testing method
 
-- **One line description:**
+- **One line description:** Node script to generate many post requests
 - **Video timestamp:** 
 - **Relevant files:**
-    - 
+    - /Test/loadTester.js
 
 Additional criteria
 ------------------------------------------------
@@ -141,18 +147,18 @@ Additional criteria
 
 ### Live progress indication
 
-- **One line description:** Not attempted
+- **One line description:** Web client presents the live progress of transcoding
 - **Video timestamp:** 
 - **Relevant files:**
-    - 
+    - /Client/src/components/Progress.js
 
 
 ### Infrastructure as code
 
-- **One line description:** Not attempted
+- **One line description:** Uses Docker compose and Mongo containers
 - **Video timestamp:** 
 - **Relevant files:**
-    - 
+    - ./compose.yml
 
 
 ### Other
