@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { saveAs } from 'file-saver'
+import { saveAs } from 'file-saver';
 import { Button, message } from 'antd';
 
 function History() {
@@ -20,7 +20,7 @@ function History() {
 
         const fetchHistory = async () => {
             try {
-                const path = (process.env.REACT_APP_APIURL ? process.env.REACT_APP_APIURL + '/history' : '/history');
+                const path = process.env.REACT_APP_APIURL ? process.env.REACT_APP_APIURL + '/history' : '/history';
                 const response = await axios.get(`${path}/${username}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -31,28 +31,41 @@ function History() {
                 console.error('Error fetching history: ', err);
             }
         };
+
+        // Fetch history initially
         fetchHistory();
+
+        // Set up polling to fetch history every 10 seconds
+        const intervalId = setInterval(fetchHistory, 10000);
+
+        // Cleanup the interval on component unmount
+        return () => clearInterval(intervalId);
+
     }, [token]);
+
     if (!isLoggedIn) {
         return <Navigate to='/login' />;
     }
 
     const downloadGif = async (gifUrl) => {
-        const tmpList = gifUrl.split('/')
+        const tmpList = gifUrl.split('/');
         const fileName = tmpList[tmpList.length - 1];
-        //http://localhost:5000/download
-        const path = (process.env.REACT_APP_APIURL ? process.env.REACT_APP_APIURL + '/download' : '/download');
-        const resp = await axios.get(`${path}/${fileName}`, {
-            responseType: 'blob',
-        })
+        const path = process.env.REACT_APP_APIURL ? process.env.REACT_APP_APIURL + '/download' : '/download';
+        try {
+            const resp = await axios.get(`${path}/${fileName}`, {
+                responseType: 'blob',
+            });
 
-        if (resp.status === 200) {
-            saveAs(await resp.data, fileName)
-            message.success('Successfully downloaded!')
-        } else {
-            message.error('Download failed.')
+            if (resp.status === 200) {
+                saveAs(await resp.data, fileName);
+                message.success('Successfully downloaded!');
+            } else {
+                message.error('Download failed.');
+            }
+        } catch (error) {
+            message.error('Error occurred while downloading.');
         }
-    }
+    };
 
     return (
         <>
@@ -61,11 +74,11 @@ function History() {
                 <ul className="history-list">
                     {history.map((item, index) => (
                         <p key={index} className="history-item">
-                            <a >GIF {index + 1}</a> - Created at: {new Date(item.createdAt).toLocaleString()}
-                            <Button size="small" 
-                            onClick={() => downloadGif(item.gifUrl)} 
-                            style={{background:'linear-gradient(135deg, #fff7ad, #ffa9f9)', border:"#ffffff"}}> 
-                            Download 
+                            <a>GIF {index + 1}</a> - Created at: {new Date(item.createdAt).toLocaleString()}
+                            <Button size="small"
+                                onClick={() => downloadGif(item.gifUrl)}
+                                style={{ background: 'linear-gradient(135deg, #fff7ad, #ffa9f9)', border: "#ffffff" }}>
+                                Download
                             </Button>
                         </p>
                     ))}
@@ -74,8 +87,6 @@ function History() {
                 <p>No history found.</p>
             )}
         </>
-
-
     );
 }
 
