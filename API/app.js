@@ -6,9 +6,11 @@ var logger = require('morgan');
 const connectDB = require('./db');
 require('dotenv').config();
 const cors = require('cors');
+const fs = require('fs')
 
 connectDB();
 
+createFolderIfNotExists(path.join(__dirname, 'public', 'gifs'))
 
 // route handlers for different parts of the applicaiton
 const indexRouter = require('./routes/index');
@@ -38,12 +40,12 @@ app.use('/gifs', express.static(path.join(__dirname, 'public/gifs')));
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -54,3 +56,12 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+function createFolderIfNotExists(folderPath) {
+  if (!fs.existsSync(folderPath)) {
+    fs.mkdirSync(folderPath, { recursive: true });
+    console.log(`Folder created: ${folderPath}`);
+  } else {
+    console.log(`Folder already exists: ${folderPath}`);
+  }
+}

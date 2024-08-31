@@ -14,12 +14,14 @@ const transformToGif = (videoPath, tasks, taskName) => {
         '-r', '15', // Frame rate (15 frames per second)
         '-q:v', '3' // Lower the value for better quality (range is 1-31, lower is better)
       ])
-      .on('start', () =>{
-        tasks.set(taskName,0);
+      .on('start', () => {
+        tasks.set(taskName, 0);
         resolve(fileName);
       })
       .on("progress", (progress) => {
-       tasks.set(taskName, Math.ceil(progress.percent))
+        const prog = Math.ceil(progress.percent)
+        console.log(prog)
+        tasks.set(taskName, prog)
       })
       .on('end', () => {
         tasks.set(taskName, 100);
