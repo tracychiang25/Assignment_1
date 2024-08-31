@@ -33,7 +33,7 @@ function Login(){
               const { token } = response.data;
               localStorage.setItem('token', token);
                 message.success("User logged in succcessfully!");
-                navigate('/gifs');
+                navigate('/dashboard');
             }
         }catch(err){
             console.error("Error during login: ", err);

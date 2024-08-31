@@ -37,6 +37,9 @@ app.use(cors());
 app.use('/', gifsRouter);
 app.use('/users', usersRouter);
 app.use('/gifs', express.static(path.join(__dirname, 'public/gifs')));
+app.get('*', (req,res)=>{
+  res.sendFile(path.join(__dirname, 'public','index.html'))
+})
 
 
 // catch 404 and forward to error handler

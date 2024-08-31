@@ -20,7 +20,7 @@ function App() {
           <Route path='/about' element = {<About />} />
           <Route path='/login' element =  {<Login />} />
           <Route path='/history' element = { <History />} />
-          <Route path='/gifs' element = { <Converter />} />
+          <Route path='/dashboard' element = { <Converter />} />
         </Routes>
       </Router>
       

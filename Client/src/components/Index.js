@@ -15,7 +15,7 @@ function Index() {
     if(!token){
       navigate('/login');
     }else{
-      navigate('/gifs');
+      navigate('/dashboard');
     }
   }
 
