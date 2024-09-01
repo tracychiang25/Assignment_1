@@ -7,7 +7,7 @@ const User = require('../models/User');
 // Login user
 router.post("/login", userController.login);
 
-// JWT authentication
+
 router.get('/profile', middleware.authenticateJWT, (req, res)=>{
   res.json({message: 'Hello ${req.user.username}, this is your profile'});
 })

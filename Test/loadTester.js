@@ -2,7 +2,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const fs = require('fs');
 
-const base_url = 'http://13.211.123.51';
+const base_url = 'http://13.210.148.164';
 const file = './test.mp4';
 
 const login = async () => {
